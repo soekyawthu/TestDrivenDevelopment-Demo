@@ -83,5 +83,17 @@ namespace RoomBooking.Core.Test
             _processor.BookRoom(_request);
             _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<RoomBooking>()), Times.Never);
         }
+        
+        [Theory]
+        [InlineData(BookingResultFlag.Success, true)]
+        [InlineData(BookingResultFlag.Failure, false)]
+        public void Should_Return_SuccessOrFailure_Flag_In_Result(BookingResultFlag flag, bool isAvailable)
+        {
+            if (!isAvailable)
+                _availableRooms.Clear();   
+    
+            var result = _processor.BookRoom(_request);
+            result.BookingResultFlag.ShouldBe(flag);
+        }
     }
 }

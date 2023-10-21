@@ -16,24 +16,32 @@ public class RoomBookingRequestProcessor
 
         var rooms = _roomBookingService.GetAvailableRooms(request.Date).ToList();
 
-        if (rooms.Any())
-        {
-            var roomBooking = new RoomBooking
+        if (!rooms.Any())
+            return new RoomBookingResult
             {
                 FullName = request.FullName,
                 Email = request.Email,
                 Date = request.Date,
-                RoomId = rooms.First().Id
+                BookingResultFlag = BookingResultFlag.Failure
             };
         
-            _roomBookingService.Save(roomBooking);
-        }
+        var roomBooking = new RoomBooking
+        {
+            FullName = request.FullName,
+            Email = request.Email,
+            Date = request.Date,
+            RoomId = rooms.First().Id
+        };
+        
+        _roomBookingService.Save(roomBooking);
         
         return new RoomBookingResult
         {
             FullName = request.FullName,
             Email = request.Email,
-            Date = request.Date
+            Date = request.Date,
+            BookingResultFlag = BookingResultFlag.Success
         };
+
     }
 }
