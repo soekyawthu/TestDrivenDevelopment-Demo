@@ -15,6 +15,7 @@ public class RoomBookingController : ControllerBase
         _processor = processor;
     }
 
+    [HttpPost]
     public IActionResult BookRoom(RoomBookingRequest bookingRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);

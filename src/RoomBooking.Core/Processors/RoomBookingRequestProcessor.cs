@@ -1,5 +1,6 @@
 using Booking.Core.Models;
 using Booking.Core.Services;
+using RoomBooking.Core.Models;
 
 namespace RoomBooking.Core.Processors;
 

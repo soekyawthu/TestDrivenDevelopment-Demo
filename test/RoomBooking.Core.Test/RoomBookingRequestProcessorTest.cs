@@ -2,6 +2,7 @@ using Booking.Core.Models;
 using Booking.Core.Services;
 using Moq;
 using RoomBooking.Core.Domains;
+using RoomBooking.Core.Models;
 using RoomBooking.Core.Processors;
 using Shouldly;
 

@@ -1,4 +1,6 @@
-namespace Booking.Core.Models;
+using Booking.Core.Models;
+
+namespace RoomBooking.Core.Models;
 
 public class RoomBookingResult
 {

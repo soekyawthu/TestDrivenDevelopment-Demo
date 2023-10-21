@@ -2,6 +2,7 @@ using Booking.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RoomBooking.Api.Controllers;
+using RoomBooking.Core.Models;
 using RoomBooking.Core.Processors;
 using Shouldly;
 
