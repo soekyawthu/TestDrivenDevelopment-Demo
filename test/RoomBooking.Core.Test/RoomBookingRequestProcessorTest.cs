@@ -95,5 +95,27 @@ namespace RoomBooking.Core.Test
             var result = _processor.BookRoom(_request);
             result.BookingResultFlag.ShouldBe(flag);
         }
+        
+        [Theory]
+        [InlineData(1, true)]
+        [InlineData(0, false)]
+        public void Should_Return_RoomBookingId_In_Result(int roomBookingId, bool isAvailable)
+        {
+            if (!isAvailable)
+            {
+                _availableRooms.Clear();   
+            }
+            else
+            {
+                _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<RoomBooking>()))
+                    .Callback<RoomBooking>(booking =>
+                    {
+                        booking.Id = roomBookingId;
+                    });
+            }
+    
+            var result = _processor.BookRoom(_request);
+            result.RoomBookingId.ShouldBe(roomBookingId);
+        }
     }
 }

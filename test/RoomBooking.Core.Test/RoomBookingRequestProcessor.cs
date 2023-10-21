@@ -14,34 +14,33 @@ public class RoomBookingRequestProcessor
         if (request is null)
             throw new ArgumentNullException(nameof(request));
 
-        var rooms = _roomBookingService.GetAvailableRooms(request.Date).ToList();
+        var availableRooms = _roomBookingService.GetAvailableRooms(request.Date).ToList();
 
-        if (!rooms.Any())
-            return new RoomBookingResult
-            {
-                FullName = request.FullName,
-                Email = request.Email,
-                Date = request.Date,
-                BookingResultFlag = BookingResultFlag.Failure
-            };
+        var result = new RoomBookingResult
+        {
+            FullName = request.FullName,
+            Email = request.Email,
+            Date = request.Date,
+        };
+
+        if (!availableRooms.Any())
+        {
+            result.BookingResultFlag = BookingResultFlag.Failure;
+            return result;
+        }
         
         var roomBooking = new RoomBooking
         {
             FullName = request.FullName,
             Email = request.Email,
             Date = request.Date,
-            RoomId = rooms.First().Id
+            RoomId = availableRooms.First().Id
         };
         
         _roomBookingService.Save(roomBooking);
         
-        return new RoomBookingResult
-        {
-            FullName = request.FullName,
-            Email = request.Email,
-            Date = request.Date,
-            BookingResultFlag = BookingResultFlag.Success
-        };
-
+        result.RoomBookingId = roomBooking.Id;
+        result.BookingResultFlag = BookingResultFlag.Success;
+        return result;
     }
 }
