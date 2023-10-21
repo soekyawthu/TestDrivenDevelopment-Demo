@@ -14,17 +14,20 @@ public class RoomBookingRequestProcessor
         if (request is null)
             throw new ArgumentNullException(nameof(request));
 
-        var rooms = _roomBookingService.GetAvailableRooms(request.Date);
-        
-        var roomBooking = new RoomBooking
+        var rooms = _roomBookingService.GetAvailableRooms(request.Date).ToList();
+
+        if (rooms.Any())
         {
-            FullName = request.FullName,
-            Email = request.Email,
-            Date = request.Date,
-            RoomId = rooms.First().Id
-        };
+            var roomBooking = new RoomBooking
+            {
+                FullName = request.FullName,
+                Email = request.Email,
+                Date = request.Date,
+                RoomId = rooms.First().Id
+            };
         
-        _roomBookingService.Save(roomBooking);
+            _roomBookingService.Save(roomBooking);
+        }
         
         return new RoomBookingResult
         {

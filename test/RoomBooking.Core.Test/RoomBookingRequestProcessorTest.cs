@@ -75,5 +75,13 @@ namespace RoomBooking.Core.Test
             savedBooking?.Date.ShouldBe(_request.Date);
             savedBooking?.RoomId.ShouldBe(_availableRooms.First().Id);
         }
+
+        [Fact]
+        public void Should_Not_Save_Room_Booking_If_Not_Available_Rooms()
+        {
+            _availableRooms.Clear();
+            _processor.BookRoom(_request);
+            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<RoomBooking>()), Times.Never);
+        }
     }
 }
