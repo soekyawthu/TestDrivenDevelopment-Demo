@@ -1,4 +1,7 @@
-namespace RoomBooking.Core.Test;
+using RoomBooking.Core.Models;
+using RoomBooking.Core.Services;
+
+namespace RoomBooking.Core.Processors;
 
 public class RoomBookingRequestProcessor
 {
@@ -29,7 +32,7 @@ public class RoomBookingRequestProcessor
             return result;
         }
         
-        var roomBooking = new RoomBooking
+        var roomBooking = new RoomBooking.Core.Domains.Booking
         {
             FullName = request.FullName,
             Email = request.Email,
@@ -39,7 +42,7 @@ public class RoomBookingRequestProcessor
         
         _roomBookingService.Save(roomBooking);
         
-        result.RoomBookingId = roomBooking.Id;
+        result.BookingId = roomBooking.Id;
         result.BookingResultFlag = BookingResultFlag.Success;
         return result;
     }

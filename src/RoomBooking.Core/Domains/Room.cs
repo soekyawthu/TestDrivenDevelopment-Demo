@@ -1,4 +1,4 @@
-namespace RoomBooking.Core.Test;
+namespace RoomBooking.Core.Domains;
 
 public class Room
 {

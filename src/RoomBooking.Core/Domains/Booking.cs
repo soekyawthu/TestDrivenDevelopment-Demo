@@ -1,6 +1,6 @@
-namespace RoomBooking.Core.Test;
+namespace RoomBooking.Core.Domains;
 
-public class RoomBooking
+public class Booking
 {
     public int Id { get; set; }
     public string? FullName { get; set; }
