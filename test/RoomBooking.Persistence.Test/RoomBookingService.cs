@@ -1,4 +1,5 @@
 using RoomBooking.Core.Domains;
+using Booking = RoomBooking.Core.Domains.Booking;
 
 namespace RoomBooking.Persistence.Test;
 
@@ -18,5 +19,11 @@ public class RoomBookingService
             .ToList();
 
         return availableRooms;
+    }
+
+    public void Save(Core.Domains.Booking roomBooking)
+    {
+        _dbContext.Bookings!.Add(roomBooking);
+        _dbContext.SaveChanges();
     }
 }
