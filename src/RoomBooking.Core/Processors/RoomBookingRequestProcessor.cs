@@ -44,6 +44,7 @@ public class RoomBookingRequestProcessor : IRoomBookingRequestProcessor
         _roomBookingService.Save(roomBooking);
         
         result.BookingId = roomBooking.Id;
+        result.RoomId = roomBooking.RoomId;
         result.BookingResultFlag = BookingResultFlag.Success;
         return result;
     }
