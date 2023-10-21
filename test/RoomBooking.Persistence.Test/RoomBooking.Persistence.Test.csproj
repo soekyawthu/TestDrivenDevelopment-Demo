@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\RoomBooking.Core\RoomBooking.Core.csproj" />
+      <ProjectReference Include="..\..\src\RoomBooking.Persistence\RoomBooking.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

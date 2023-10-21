@@ -1,9 +1,9 @@
+using Booking.Core.Services;
 using RoomBooking.Core.Domains;
-using Booking = RoomBooking.Core.Domains.Booking;
 
-namespace RoomBooking.Persistence.Test;
+namespace RoomBooking.Persistence.Repositories;
 
-public class RoomBookingService
+public class RoomBookingService : IRoomBookingService
 {
     private readonly RoomBookingDbContext _dbContext;
 

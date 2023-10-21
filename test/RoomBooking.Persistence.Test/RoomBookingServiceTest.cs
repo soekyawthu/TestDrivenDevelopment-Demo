@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RoomBooking.Core.Domains;
+using RoomBooking.Persistence.Repositories;
 
 namespace RoomBooking.Persistence.Test;
 
@@ -34,7 +35,9 @@ public class RoomBookingServiceTest
     [Fact]
     public void Should_Save_RoomBooking()
     {
-        var options = new DbContextOptionsBuilder<RoomBookingDbContext>().UseInMemoryDatabase("AvailableRoomTest").Options;
+        var options = new DbContextOptionsBuilder<RoomBookingDbContext>()
+            .UseInMemoryDatabase("SaveRoomBookingTest")
+            .Options;
 
         using var dbContext = new RoomBookingDbContext(options);
         var roomBookingService = new RoomBookingService(dbContext);
@@ -50,7 +53,7 @@ public class RoomBookingServiceTest
     
         roomBookingService.Save(roomBooking);
 
-        var result = dbContext.Bookings!.FirstOrDefault();
+        var result = dbContext.Bookings!.LastOrDefault();
     
         Assert.Equal(roomBooking.Id, result?.Id);
         Assert.Equal(roomBooking.FullName, result?.FullName);
