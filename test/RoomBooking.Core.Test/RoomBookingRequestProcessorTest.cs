@@ -37,5 +37,12 @@ namespace RoomBooking.Core.Test
             result.Email.ShouldBe(_request.Email);
             result.Date.ShouldBe(_request.Date);
         }
+        
+        [Fact]
+        public void Should_Throw_Exception_When_Request_Value_Is_Null()
+        {
+            var exception = Should.Throw<ArgumentNullException>( () => _processor.BookRoom(null));
+            exception.ParamName.ShouldBe("request");
+        }
     }
 }
