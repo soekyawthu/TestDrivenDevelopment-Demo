@@ -1,3 +1,4 @@
+using Moq;
 using Shouldly;
 
 namespace RoomBooking.Core.Test
@@ -6,6 +7,8 @@ namespace RoomBooking.Core.Test
     {
         private readonly RoomBookingRequest _request;
         private readonly RoomBookingRequestProcessor _processor;
+        private readonly Mock<IRoomBookingService> _roomBookingServiceMock;
+        private readonly List<Room> _availableRooms;
 
         public RoomBookingRequestProcessorTest()
         {
@@ -17,7 +20,18 @@ namespace RoomBooking.Core.Test
                 Date = new DateTime(2023, 10, 5)
             };
             
-            _processor = new RoomBookingRequestProcessor();
+            _availableRooms = new List<Room>() { new()
+                {
+                    Id = 1,
+                    Name = "Room A"
+                }
+            };
+            
+            _roomBookingServiceMock = new Mock<IRoomBookingService>();
+            _roomBookingServiceMock
+                .Setup(x => x.GetAvailableRooms(_request.Date))
+                .Returns(_availableRooms);
+            _processor = new RoomBookingRequestProcessor(_roomBookingServiceMock.Object);
         }
         
         [Fact]
@@ -43,6 +57,23 @@ namespace RoomBooking.Core.Test
         {
             var exception = Should.Throw<ArgumentNullException>( () => _processor.BookRoom(null));
             exception.ParamName.ShouldBe("request");
+        }
+        
+        [Fact]
+        public void Should_Save_Room_Booking_Request()
+        {
+            RoomBooking? savedBooking = null;
+            _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<RoomBooking>()))
+                .Callback<RoomBooking>(booking => savedBooking = booking);
+        
+            _processor.BookRoom(_request);
+            
+            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<RoomBooking>()), Times.Once);
+            
+            savedBooking?.FullName.ShouldBe(_request.FullName);
+            savedBooking?.Email.ShouldBe(_request.Email);
+            savedBooking?.Date.ShouldBe(_request.Date);
+            savedBooking?.RoomId.ShouldBe(_availableRooms.First().Id);
         }
     }
 }
