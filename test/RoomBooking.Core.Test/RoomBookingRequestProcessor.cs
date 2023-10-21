@@ -4,6 +4,9 @@ public class RoomBookingRequestProcessor
 {
     public RoomBookingResult BookRoom(RoomBookingRequest request)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        
         return new RoomBookingResult
         {
             FullName = request.FullName,
