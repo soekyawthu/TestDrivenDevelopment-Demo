@@ -1,9 +1,9 @@
 using Booking.Core.Models;
 using Booking.Core.Services;
 
-namespace Booking.Core.Processors;
+namespace RoomBooking.Core.Processors;
 
-public class RoomBookingRequestProcessor
+public class RoomBookingRequestProcessor : IRoomBookingRequestProcessor
 {
     private readonly IRoomBookingService _roomBookingService;
 
