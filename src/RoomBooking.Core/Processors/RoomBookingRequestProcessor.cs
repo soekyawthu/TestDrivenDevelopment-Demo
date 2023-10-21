@@ -1,7 +1,7 @@
-using RoomBooking.Core.Models;
-using RoomBooking.Core.Services;
+using Booking.Core.Models;
+using Booking.Core.Services;
 
-namespace RoomBooking.Core.Processors;
+namespace Booking.Core.Processors;
 
 public class RoomBookingRequestProcessor
 {

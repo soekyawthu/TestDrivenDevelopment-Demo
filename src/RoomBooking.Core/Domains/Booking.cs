@@ -7,4 +7,5 @@ public class Booking
     public string? Email { get; set; }
     public DateTime Date { get; set; }
     public int RoomId { get; set; }
+    public Room? Room { get; set; }
 }

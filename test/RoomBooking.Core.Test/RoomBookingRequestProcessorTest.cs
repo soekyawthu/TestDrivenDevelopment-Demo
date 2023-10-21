@@ -1,11 +1,11 @@
+using Booking.Core.Models;
+using Booking.Core.Processors;
+using Booking.Core.Services;
 using Moq;
 using RoomBooking.Core.Domains;
-using RoomBooking.Core.Models;
-using RoomBooking.Core.Processors;
-using RoomBooking.Core.Services;
 using Shouldly;
 
-namespace RoomBooking.Core.Test
+namespace Booking.Core.Test
 {
     public class RoomBookingRequestProcessorTest
     {
@@ -66,13 +66,13 @@ namespace RoomBooking.Core.Test
         [Fact]
         public void Should_Save_Room_Booking_Request()
         {
-            Booking? savedBooking = null;
-            _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<Booking>()))
-                .Callback<Booking>(booking => savedBooking = booking);
+            RoomBooking.Core.Domains.Booking? savedBooking = null;
+            _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<RoomBooking.Core.Domains.Booking>()))
+                .Callback<RoomBooking.Core.Domains.Booking>(booking => savedBooking = booking);
         
             _processor.BookRoom(_request);
             
-            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<Booking>()), Times.Once);
+            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<RoomBooking.Core.Domains.Booking>()), Times.Once);
             
             savedBooking?.FullName.ShouldBe(_request.FullName);
             savedBooking?.Email.ShouldBe(_request.Email);
@@ -85,7 +85,7 @@ namespace RoomBooking.Core.Test
         {
             _availableRooms.Clear();
             _processor.BookRoom(_request);
-            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<Booking>()), Times.Never);
+            _roomBookingServiceMock.Verify(x => x.Save(It.IsAny<RoomBooking.Core.Domains.Booking>()), Times.Never);
         }
         
         [Theory]
@@ -111,8 +111,8 @@ namespace RoomBooking.Core.Test
             }
             else
             {
-                _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<Booking>()))
-                    .Callback<Booking>(booking =>
+                _roomBookingServiceMock.Setup(x => x.Save(It.IsAny<RoomBooking.Core.Domains.Booking>()))
+                    .Callback<RoomBooking.Core.Domains.Booking>(booking =>
                     {
                         booking.Id = roomBookingId;
                     });

@@ -1,6 +1,6 @@
 using RoomBooking.Core.Domains;
 
-namespace RoomBooking.Core.Services;
+namespace Booking.Core.Services;
 
 public interface IRoomBookingService
 {
