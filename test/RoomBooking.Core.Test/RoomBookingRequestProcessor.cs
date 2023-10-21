@@ -9,7 +9,7 @@ public class RoomBookingRequestProcessor
         _roomBookingService = roomBookingService;
     }
     
-    public RoomBookingResult BookRoom(RoomBookingRequest request)
+    public RoomBookingResult BookRoom(RoomBookingRequest? request)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));

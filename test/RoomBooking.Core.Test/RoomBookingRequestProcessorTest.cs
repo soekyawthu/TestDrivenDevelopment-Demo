@@ -5,7 +5,7 @@ namespace RoomBooking.Core.Test
 {
     public class RoomBookingRequestProcessorTest
     {
-        private readonly RoomBookingRequest _request;
+        private readonly RoomBookingRequest? _request;
         private readonly RoomBookingRequestProcessor _processor;
         private readonly Mock<IRoomBookingService> _roomBookingServiceMock;
         private readonly List<Room> _availableRooms;
