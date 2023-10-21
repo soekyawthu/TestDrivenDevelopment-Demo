@@ -5,7 +5,7 @@ using RoomBooking.Core.Domains;
 using RoomBooking.Core.Processors;
 using Shouldly;
 
-namespace Booking.Core.Test
+namespace RoomBooking.Core.Test
 {
     public class RoomBookingRequestProcessorTest
     {
